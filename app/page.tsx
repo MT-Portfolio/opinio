@@ -1,54 +1,78 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import Link from "next/link";
+import React from "react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
-export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isSupabaseConnected = canInitSupabaseClient();
-
+export default function HomePage() {
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
+    <>
+      <div className="flex flex-col items-center mt-20 h-screen">
+        <div className="flex flex-row mb-16 text-center gap-2">
+          <Image
+            src="/opinio_transparent_background/logo_light.png"
+            alt="Opinio Logo"
+            width={80}
+            height={30}
+          ></Image>
+          <h1 className="text-4xl font-bold pt-8 text-gray-900">
+            Opinio: Your voice. Brand success.
+          </h1>
         </div>
-      </nav>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
+        <div className="grid grid-cols-2 gap-16 m-12">
+          {/* User Section */}
+          <div className="flex flex-col space-y-4">
+            <p className="text-[#00004D] text-xl font-medium ">
+              Join Opinio's vibrant community of opinion influencer.
+            </p>
+            <p>
+              Share your opinions, influence brands, and earn rewards with
+              Opinio's paid surveys. Sign up now to start making an impact!
+            </p>
+            <Button className="bg-blue-900/90 p-2 rounded-full text-white self-end">
+              <Link href="/voiceofcustomer">
+                <div className="flex items-center justify-center">
+                  <span className="m-2">Be the Voice</span>
+                </div>
+              </Link>
+            </Button>
+          </div>
+          {/* Corporate Section */}
+          <div className="flex flex-col space-y-4">
+            <p className="text-[#00004D] text-xl font-medium">
+              Unlock the power of consumer insights and drive growth with
+              Opinio's enterprise-grade SaaS platform.
+            </p>
+            <ul className="list-disc pl-4 space-y-2">
+              <li>
+                Build custom surveys to target the right audience and gather
+                valuable feedback.
+              </li>
+              <li>
+                Create professional surveys quickly and easily with our
+                drag-and-drop builder - no coding required.
+              </li>
+              <li>
+                Gain deep customer understanding through powerful analytics and
+                insightful reports.
+              </li>
+              <li>
+                Make data-driven decisions fueled by real-time consumer
+                feedback.
+              </li>
+              <li>
+                Maintain complete control over your surveys, data, and reports.
+              </li>
+            </ul>
+            <Button className="bg-blue-900/90 p-2 rounded-full text-white self-end">
+              <Link href="/corporate">
+                <div className="flex items-center justify-center">
+                  <span className="m-2">Empower Your Brand</span>
+                </div>
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
-    </div>
+    </>
   );
 }
